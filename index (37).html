@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gr 8: 12 Day Digital BootCamp: EOG Review</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #27ae60;
+            --accent: #e67e22;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background: var(--light); color: var(--primary); margin: 0; padding: 0; }
+        .navbar { background: var(--primary); color: white; padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .day-card { background: white; border: 2px solid var(--primary); padding: 15px; text-align: center; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .day-card:hover { background: var(--secondary); color: white; transform: translateY(-5px); }
+        .page { display: none; }
+        .active { display: block; }
+        .motivation { background: #d5f5e3; padding: 20px; border-left: 5px solid var(--secondary); font-style: italic; margin-bottom: 20px; font-size: 1.1rem; }
+        .quiz-container { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #ddd; }
+        .question-block { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .option { display: block; background: white; border: 1px solid #ddd; padding: 10px; margin: 5px 0; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background: #f0f0f0; }
+        .selected-correct { background: #27ae60 !important; color: white; }
+        .selected-wrong { background: #e74c3c !important; color: white; }
+        .resource-box { background: #fef9e7; border: 2px dashed var(--accent); padding: 20px; margin: 20px 0; text-align: center; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: var(--primary); color: white; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; cursor: pointer; border: none; margin-top: 10px; font-size: 1rem; }
+        .btn-back { background: #7f8c8d; margin-bottom: 20px; }
+        .screenshot-note { margin-top: 20px; padding: 15px; background: #34495e; color: white; border-radius: 5px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>Gr 8: 12 Day Digital BootCamp</h1>
+    <p>Georgia Studies EOG Review</p>
+</div>
+
+<div class="container">
+    <div id="home" class="page active">
+        <h2>Mission Control</h2>
+        <p>Welcome to BootCamp. Click your assigned day to begin.</p>
+        <div class="dashboard" id="main-dashboard">
+            <!-- JavaScript will populate days here for cleaner code -->
+        </div>
+    </div>
+
+    <!-- DAY PAGES WILL BE GENERATED IN SCRIPT OR HARDCODED BELOW -->
+    <div id="day-content"></div>
+
+</div>
+
+<script>
+    const daysData = [
+        { id: 1, title: "Geography", motivation: "Geography is the stage where history happens.", pdf: "historypart1new.pdf", questions: [
+            { q: "Which region is the most populated and center of GA industry?", options: ["Appalachian Plateau", "Piedmont", "Blue Ridge"], correct: 1 },
+            { q: "Which feature protects the mainland from erosion and storms?", options: ["Barrier Islands", "Okefenokee Swamp", "Fall Line"], correct: 0 },
+            { q: "GA is located in which two hemispheres?", options: ["Northern and Eastern", "Northern and Western", "Southern and Western"], correct: 1 },
+            { q: "Which river forms the border between GA and South Carolina?", options: ["Savannah River", "Chattahoochee River", "St. Marys River"], correct: 0 },
+            { q: "Which region is home to the highest point in GA, Brasstown Bald?", options: ["Valley and Ridge", "Piedmont", "Blue Ridge"], correct: 2 }
+        ]},
+        { id: 2, title: "Exploration", motivation: "Exploration is the engine of change.", pdf: "historypart1new.pdf", questions: [
+            { q: "Primary goal of de Soto?", options: ["Gold", "Religion", "Fur"], correct: 0 },
+            { q: "Main cause of Native death post-contact?", options: ["War", "Disease", "Starvation"], correct: 1 },
+            { q: "Location of Spanish Missions?", options: ["Barrier Islands/Coast", "Blue Ridge", "Piedmont"], correct: 0 },
+            { q: "Purpose of Charter of 1732?", options: ["Charity, Economics, Defense", "Gold, God, Glory", "Liberty, Equality"], correct: 0 },
+            { q: "Interpreter for Oglethorpe/Tomochichi?", options: ["Nancy Hart", "Mary Musgrove", "Button Gwinnett"], correct: 1 }
+        ]},
+        { id: 3, title: "Revolution", motivation: "Liberty is a hard-won prize.", pdf: "historypart1new.pdf", questions: [
+            { q: "Proclamation of 1763 move boundary to?", options: ["Altamaha", "St. Marys", "Chattahoochee"], correct: 1 },
+            { q: "GA's response to Stamp Act?", options: ["Total support", "Only colony to sell stamps", "Burned them all"], correct: 1 },
+            { q: "Battle that ended British control in GA backcountry?", options: ["Kettle Creek", "Siege of Savannah", "Yorktown"], correct: 0 },
+            { q: "GA Signer of Declaration?", options: ["Lyman Hall", "George Walton", "Both"], correct: 2 },
+            { q: "Weakness of Articles of Confederation?", options: ["Strong Executive", "Too much federal power", "No power to tax"], correct: 2 }
+        ]},
+        { id: 4, title: "Expansion", motivation: "Growth requires movement.", pdf: "historypart2.pdf", questions: [
+            { q: "Land system based on family size?", options: ["Headright", "Lottery", "Yazoo"], correct: 0 },
+            { q: "Cotton Gin impact?", options: ["Less land needed", "Increased slave demand", "Ended farming"], correct: 1 },
+            { q: "Why capitals moved?", options: ["British Invasion", "Capital was too big", "Stay central to population"], correct: 2 },
+            { q: "Group removed on Trail of Tears?", options: ["Cherokee", "Creek", "Seminole"], correct: 0 },
+            { q: "Worcester v. Georgia outcome?", options: ["GA laws apply to Cherokee", "Jackson supported Cherokee", "Cherokee sovereign"], correct: 2 }
+        ]},
+        { id: 5, title: "Civil War", motivation: "A house divided cannot stand.", pdf: "historypart3.pdf", questions: [
+            { q: "Georgia Platform purpose?", options: ["Secession", "Accept Compromise of 1850", "End slavery"], correct: 1 },
+            { q: "Bloodiest one-day Battle in GA?", options: ["Andersonville", "Chickamauga", "Atlanta"], correct: 1 },
+            { q: "Freedmen's Bureau role?", options: ["Help former slaves/poor whites", "Punish South", "Find workers"], correct: 0 },
+            { q: "Which amendment ended slavery?", options: ["13th", "14th", "15th"], correct: 0 },
+            { q: "Removal of Black Legislators led to?", options: ["Military Rule return", "Moving capital", "Slavery return"], correct: 0 }
+        ]},
+        { id: 6, title: "New South", motivation: "Resilience defines Georgia.", pdf: "historypart4.pdf", questions: [
+            { q: "Bourbon Triumvirate goal?", options: ["Industry/White Supremacy", "Civil Rights", "Move capital"], correct: 0 },
+            { q: "Cotton Expo purpose?", options: ["Show tools", "Attract Northern Invest.", "Protest"], correct: 1 },
+            { q: "Henry Grady promoted?", options: ["New South", "Populists", "Jim Crow repeal"], correct: 0 },
+            { q: "1906 Race Riot result?", options: ["Increased segregation", "City unity", "No impact"], correct: 0 },
+            { q: "Leo Frank Case significance?", options: ["Anti-Semitism/KKK rebirth", "Jewish Gov elected", "Desegregation"], correct: 0 }
+        ]},
+        { id: 7, title: "WWI/Depression", motivation: "Surviving the storm.", pdf: "historypart4.pdf", questions: [
+            { q: "WWI GA contribution?", options: ["Training camps", "Naval battles", "Tank production"], correct: 0 },
+            { q: "Agri decline before Depression caused by?", options: ["Boll Weevil/Drought", "End of slavery", "Overproduction"], correct: 0 },
+            { q: "Talmadge view on New Deal?", options: ["Support", "Oppose", "City support only"], correct: 1 },
+            { q: "CCC purpose?", options: ["Environmental jobs", "Farm pay", "Social security"], correct: 0 },
+            { q: "REA role?", options: ["Electricity to farms", "Paid to stop cotton", "Retirement"], correct: 0 }
+        ]},
+        { id: 8, title: "WWII", motivation: "The Greatest Generation.", pdf: "historypart5.pdf", questions: [
+            { q: "Lend-Lease purpose?", options: ["Aid Allies", "Lease GA land", "End Depression"], correct: 0 },
+            { q: "Bell Bomber produced?", options: ["Rifles", "B-29s", "Tuskegee Pilots"], correct: 1 },
+            { q: "Savannah/Brunswick built?", options: ["Liberty Ships", "U-Boats", "Cotton storage"], correct: 0 },
+            { q: "Father of Two-Ocean Navy?", options: ["Russell", "Vinson", "Arnall"], correct: 1 },
+            { q: "Richard Russell contribution?", options: ["15 Military bases", "Sec of Defense", "Desegregation"], correct: 0 }
+        ]},
+        { id: 9, title: "Civil Rights", motivation: "Breaking the silence.", pdf: "historypart5.pdf", questions: [
+            { q: "Post-War agri change?", options: ["Tech/Move to cities", "Move to farms", "Only cotton"], correct: 0 },
+            { q: "1946 Controversy?", options: ["Atlanta Mayor", "Three Governors", "Desegregation"], correct: 1 },
+            { q: "Sibley Commission role?", options: ["Bases", "School integration opinion", "Olympics"], correct: 1 },
+            { q: "MLK Jr. belief?", options: ["Non-violence", "Aggression", "Separation"], correct: 0 },
+            { q: "Civil Rights Act 1964?", options: ["Illegal segregation", "18yr vote", "Integrated assembly"], correct: 0 }
+        ]},
+        { id: 10, title: "Gov Pt 1", motivation: "Citizenship in action.", pdf: "GA_Gov_Standards.pdf", questions: [
+            { q: "Separation of Powers purpose?", options: ["Divide branches", "Ensure voting", "Federal separation"], correct: 0 },
+            { q: "Checks/Balances example?", options: ["Veto", "Voting", "Taxes"], correct: 0 },
+            { q: "Legal responsibility?", options: ["Fair trial", "Jury Duty", "Religion"], correct: 1 },
+            { q: "Voting requirement?", options: ["18+ / Citizen / Resident", "Property owner", "Literacy test"], correct: 0 },
+            { q: "Legislative role?", options: ["Make laws", "Enforce laws", "Interpret laws"], correct: 0 }
+        ]},
+        { id: 11, title: "Gov Pt 2", motivation: "Enforcing the law.", pdf: "GA_Gov_Standards.pdf", questions: [
+            { q: "Gov/Lt Gov age?", options: ["30", "25", "35"], correct: 0 },
+            { q: "Executive role?", options: ["Make laws", "Enforce laws", "Interpret laws"], correct: 1 },
+            { q: "Highest GA Court?", options: ["Superior", "Supreme", "Probate"], correct: 1 },
+            { q: "Special Purpose District?", options: ["MARTA", "Savannah", "Cobb"], correct: 0 },
+            { q: "Delinquent Act?", options: ["Crime if adult", "Status offense", "Fine only"], correct: 0 }
+        ]},
+        { id: 12, title: "Economics", motivation: "Georgia's prosperity.", pdf: "GA_Gov_Standards.pdf", questions: [
+            { q: "Transport hub for travel?", options: ["Ports", "Airport", "Highways"], correct: 1 },
+            { q: "Woodruff's company?", options: ["Coca-Cola", "Delta", "Home Depot"], correct: 0 },
+            { q: "Deepwater Port value?", options: ["Global trade/jobs", "Hydro power", "Military only"], correct: 0 },
+            { q: "Interest meaning?", options: ["Total loan", "Fee for use", "State tax"], correct: 1 },
+            { q: "Credit Score benefit?", options: ["Lower interest rates", "No debt", "No tax"], correct: 0 }
+        ]}
+    ];
+
+    function init() {
+        const dashboard = document.getElementById('main-dashboard');
+        const contentArea = document.getElementById('day-content');
+        
+        daysData.forEach(day => {
+            // Add Dashboard Cards
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `Day ${day.id}<br>${day.title}`;
+            card.onclick = () => showDay(day.id);
+            dashboard.appendChild(card);
+            
+            // Add Day Pages
+            const page = document.createElement('div');
+            page.id = `day${day.id}`;
+            page.className = 'page';
+            page.innerHTML = `
+                <button class="btn btn-back" onclick="showHome()">← Back</button>
+                <div class="motivation">"${day.motivation}"</div>
+                <h3>Phase 1: 5-Question Diagnostic</h3>
+                <div class="quiz-container">${renderQuestions(day.questions, day.id)}</div>
+                <div class="resource-box">
+                    <h3>Phase 2: Drill & Remediation</h3>
+                    <p>Review the resources for Day ${day.id}:</p>
+                    <a href="https://www.exceedthestandard.com/uploads/3/1/9/0/31905805/${day.pdf}" class="btn" target="_blank">Open Review PDF</a>
+                </div>
+                <h3>Phase 3: Vocabulary & Reflection</h3>
+                <table>
+                    <tr><th>Concept</th><th>Status</th></tr>
+                    <tr><td>Core Standard Study</td><td><select><option>...</option><option>Mastered</option><option>Needs Help</option></select></td></tr>
+                    <tr><td>Unit Vocabulary</td><td><select><option>...</option><option>Mastered</option><option>Needs Help</option></select></td></tr>
+                </table>
+                <div class="screenshot-note">SCREENSHOT FOR YOUR GRADE</div>
+            `;
+            contentArea.appendChild(page);
+        });
+    }
+
+    function renderQuestions(questions, dayId) {
+        return questions.map((q, idx) => `
+            <div class="question-block">
+                <p>${idx + 1}. ${q.q}</p>
+                ${q.options.map((opt, optIdx) => `
+                    <div class="option" onclick="check(this, ${optIdx === q.correct})">${opt}</div>
+                `).join('')}
+            </div>
+        `).join('');
+    }
+
+    function showDay(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`day${id}`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function showHome() {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('home').classList.add('active');
+    }
+
+    function check(el, isCorrect) {
+        const parent = el.parentElement;
+        parent.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected-correct', 'selected-wrong'));
+        if(isCorrect) { el.classList.add('selected-correct'); } 
+        else { el.classList.add('selected-wrong'); }
+    }
+
+    init();
+</script>
+</body>
+</html>
